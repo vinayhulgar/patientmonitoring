@@ -38,6 +38,8 @@ The Patient Monitoring System follows a layered architecture with clear separati
 4. **Repository Layer**: Data access interfaces for patient, reading, and alert information.
 5. **Device Integration Layer**: Interfaces for connecting to and collecting data from physical medical devices.
 
+![img.png](img.png)
+
 ## Class Structure
 
 ### Data Models
