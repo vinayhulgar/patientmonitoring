@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://prod-db:5432/prod_db
+    username: prod_user
+    password: prod_pass
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: WARN
+

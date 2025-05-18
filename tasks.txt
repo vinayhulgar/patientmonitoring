@@ -1,0 +1,37 @@
+📕Weekend 1: Project Setup & Core Architecture
+
+Task 1: Set Up Development Environment
+
+Business Value: Establishes foundation for efficient development
+Acceptance Criteria:
+
+Git repository initialized with branching strategy
+Development, testing, and production environments configured
+CI/CD pipeline set up with automated testing
+Documentation structure established
+
+
+
+Task 2: Create Data Schema & Models
+
+Business Value: Defines how patient data will be structured for analysis
+Acceptance Criteria:
+
+Patient data model defined with all relevant attributes
+Vital signs schema with appropriate data types and constraints
+Alert model with priority levels and routing information
+Unit tests for all models
+
+
+
+Task 3: Design System Architecture
+
+Business Value: Ensures scalable, maintainable system design
+Acceptance Criteria:
+
+Architecture diagram showing all system components
+API specification document
+Data flow diagrams for key processes
+Technology stack decisions documented with rationale
+
+-------------------------------------------------------------------------
