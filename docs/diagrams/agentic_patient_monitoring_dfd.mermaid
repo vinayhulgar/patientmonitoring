@@ -1,0 +1,154 @@
+graph TD
+    %% Level 0 - Context Diagram
+    subgraph "Level 0: Context Diagram"
+        P[Patient] --> |Vital Signs, Symptoms| APMS[Agentic Patient Monitoring System]
+        APMS --> |Alerts, Recommendations| P
+        
+        HC[Healthcare Provider] --> |Treatment Plans, Configurations| APMS
+        APMS --> |Clinical Reports, Alerts| HC
+        
+        EM[Emergency Services] --> |Response Confirmation| APMS
+        APMS --> |Emergency Alerts| EM
+        
+        PHR[Patient Health Records] --> |Historical Data| APMS
+        APMS --> |Updated Records| PHR
+        
+        EXT[External Health APIs] --> |Reference Data, Guidelines| APMS
+        APMS --> |Data Requests| EXT
+    end
+
+    %% Level 1 - System Overview
+    subgraph "Level 1: System Overview"
+        %% External Entities
+        PAT[Patient]
+        HCP[Healthcare Provider]
+        EMRG[Emergency Services]
+        PHRDB[Patient Health Records DB]
+        EXTAPI[External Health APIs]
+        
+        %% Main Processes
+        DMC[1.0 Data Collection & Monitoring]
+        AIA[2.0 AI Analysis & Assessment]
+        AAG[3.0 Alert & Action Generation]
+        CRM[4.0 Clinical Report Management]
+        
+        %% Data Stores
+        RD[(Real-time Data)]
+        HD[(Historical Data)]
+        CP[(Clinical Protocols)]
+        AL[(Alert Logs)]
+        
+        %% Data Flows
+        PAT --> |Vital Signs, Symptoms| DMC
+        DMC --> |Processed Data| RD
+        RD --> |Current Readings| AIA
+        HD --> |Patient History| AIA
+        CP --> |Clinical Guidelines| AIA
+        
+        AIA --> |Risk Assessment| AAG
+        AAG --> |Emergency Alert| EMRG
+        AAG --> |Clinical Alert| HCP
+        AAG --> |Patient Notification| PAT
+        AAG --> |Alert Record| AL
+        
+        AIA --> |Analysis Results| CRM
+        RD --> |Current Data| CRM
+        HD --> |Historical Trends| CRM
+        CRM --> |Clinical Reports| HCP
+        CRM --> |Updated Records| PHRDB
+        
+        HCP --> |Treatment Plans| CP
+        PHRDB --> |Patient History| HD
+        EXTAPI --> |Clinical Guidelines| CP
+    end
+
+    %% Level 2 - Detailed Process Breakdown
+    subgraph "Level 2: Data Collection & Monitoring (Process 1.0)"
+        %% Sub-processes
+        DSC[1.1 Data Source Collection]
+        DVV[1.2 Data Validation & Verification]
+        DPP[1.3 Data Processing & Preprocessing]
+        RTM[1.4 Real-time Monitoring]
+        
+        %% Data Flows within Process 1.0
+        PAT --> |Raw Sensor Data| DSC
+        DSC --> |Collected Data| DVV
+        DVV --> |Validated Data| DPP
+        DPP --> |Clean Data| RTM
+        RTM --> |Monitored Data| RD
+        
+        %% Error handling
+        DVV --> |Invalid Data Alerts| HCP
+        DSC --> |Connection Issues| AL
+    end
+
+    subgraph "Level 2: AI Analysis & Assessment (Process 2.0)"
+        %% Sub-processes
+        PDA[2.1 Pattern Detection & Analysis]
+        RA[2.2 Risk Assessment]
+        PA[2.3 Predictive Analytics]
+        CA[2.4 Clinical Assessment]
+        
+        %% Data Flows within Process 2.0
+        RD --> |Current Vitals| PDA
+        HD --> |Historical Patterns| PDA
+        PDA --> |Detected Patterns| RA
+        CP --> |Risk Thresholds| RA
+        RA --> |Risk Scores| PA
+        PA --> |Predictions| CA
+        CA --> |Clinical Insights| AAG
+        
+        %% Feedback loops
+        AL --> |Previous Alerts| RA
+        CRM --> |Outcome Data| PA
+    end
+
+    subgraph "Level 2: Alert & Action Generation (Process 3.0)"
+        %% Sub-processes
+        AP[3.1 Alert Prioritization]
+        AR[3.2 Alert Routing]
+        AA[3.3 Automated Actions]
+        NM[3.4 Notification Management]
+        
+        %% Data Flows within Process 3.0
+        AIA --> |Risk Assessment| AP
+        CP --> |Alert Protocols| AP
+        AP --> |Prioritized Alerts| AR
+        AR --> |Emergency Alerts| EMRG
+        AR --> |Clinical Alerts| HCP
+        AR --> |Patient Alerts| PAT
+        AP --> |Action Triggers| AA
+        AA --> |Automated Responses| NM
+        NM --> |Delivery Confirmation| AL
+    end
+
+    subgraph "Level 2: Clinical Report Management (Process 4.0)"
+        %% Sub-processes
+        RG[4.1 Report Generation]
+        DA[4.2 Data Aggregation]
+        TA[4.3 Trend Analysis]
+        RD_OUT[4.4 Report Distribution]
+        
+        %% Data Flows within Process 4.0
+        RD --> |Current Metrics| DA
+        HD --> |Historical Data| DA
+        AIA --> |AI Insights| DA
+        DA --> |Aggregated Data| RG
+        DA --> |Time Series Data| TA
+        TA --> |Trend Analysis| RG
+        CP --> |Report Templates| RG
+        RG --> |Clinical Reports| RD_OUT
+        RD_OUT --> |Reports| HCP
+        RD_OUT --> |Data Updates| PHRDB
+    end
+
+    %% Styling
+    classDef externalEntity fill:#e1f5fe
+    classDef process fill:#f3e5f5
+    classDef dataStore fill:#e8f5e8
+    classDef subprocess fill:#fff3e0
+    
+    class PAT,HCP,EMRG,PHRDB,EXTAPI,P,HC,EM,PHR,EXT externalEntity
+    class DMC,AIA,AAG,CRM,APMS process
+    class RD,HD,CP,AL dataStore
+    class DSC,DVV,DPP,RTM,PDA,RA,PA,CA,AP,AR,AA,NM,RG,DA,TA,RD_OUT subprocess
